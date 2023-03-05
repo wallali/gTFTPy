@@ -3,7 +3,8 @@
 A _very basic_ python utility that helps you set up a [GoodTFT mini GPIO touch display][2] on a Raspberry Pi desktop to mirror the HDMI display.
 It is inspired by (i.e. copied heavily from) the [Adafruit PiTFT script][3].
 
-See [compatibility](#compatibility) for information if your GPIO display is supported by the script.
+See [compatibility](#compatibility) for information if your GPIO display is supported by the script. 
+If it's not-- dont give up so easily; try [adding support for your display](#adding-support-for-a-new-display).
 
 ## Usage
 
@@ -11,19 +12,22 @@ Install dependencies and run the script.
 
 ```shell
 cd ~
+
 sudo apt-get update
 sudo apt-get install -y git python3-pip
 sudo pip3 install --upgrade adafruit-python-shell click
+
 git clone --depth=1 https://github.com/wallali/gTFTPy.git
 cd gTFTPy
+
 sudo python3 install.py
 ```
 
 ### Parameters
 
-If run without parameters as shown above, the `install.py` script will prompt you for the options it needs.
+If it's run without parameters, the `install.py` script will prompt you for the options it needs. It's friendly-- thanks Adafruit!
 
-Alternatively you can run this script with parameters preconfigured,
+Alternatively you can run this script with parameters preconfigured, like this,
 
 ```shell
 sudo python3 install.py --display=3501r --rotation=90 --install-type=fbcp
@@ -35,14 +39,14 @@ To change to a different `--rotation` option you can run the script again and ch
 
 ## What does this script do?
 
-- installs the "driver" for your display to `/boot/overlays/`
-- installs necessary libraries for screen support like `fbi`, `tslib` and `libts-bin`
+- installs the "driver" for your display to [`/boot/overlays/`][8]
+- installs some libraries for screen support like `fbi`, `tslib` and `libts-bin`
 - tweaks `/boot/config.txt`
   - enables serial port (i2c)
   - adds display driver
   - sets up display rotation parameters
   - sets up a suitable custom HDMI resolution
-- builds and installs [`fbcp`][4]
+- builds and installs [`fbcp`][4] (for HDMI mirroring)
 - configures `fbcp` service to run during startup
 - configures X11 calibration for the touch screen support
 - configures udev support for the touch device
@@ -79,11 +83,11 @@ There is very little I can do to support if this script does not work for you. S
 
 So chances are you will need to debug it yourself, find a fix and hopefully contribute back to improve this script.
 
-Hopefully, there is enough information and resources here that can help you debug and find the problem.
+Hopefully, I can give enough information and resources here that can help you find a solution. And it's more fun that way!
 
 ### Adding support for a new display
 
-If your display is supported by the [Good TFT scripts][1], start your understanding there by looking at what that script does. From it you can get the correct driver/overlay files and parameters and use them in this script. You can add a compatible config section for your display into this script (around line 44). When you get it to work, well done you! Now consider contributing your work back to this repo.
+If your display is supported by the [Good TFT scripts][1], start your understanding there by looking at what that script does. From it you can get the correct driver/overlay files and parameters and use them in this script. You can add a compatible config section for your display into this script (around line 44). Did you get it to work? Wow, well done you! Now consider contributing your work back to this repo.
 
 ```py
 config = [  
@@ -147,6 +151,7 @@ sudo ts_calibrate
 5. [Raspberry Pi HDMI mode configuration][5]
 6. [`libinput` calibration][6]
 7. [Matrix Structure for screen rotation][7]
+8. [RPi Device Tree and Overlays Information][8]
 
 [1]: https://github.com/goodtft/LCD-show
 [2]: http://www.lcdwiki.com/
@@ -155,6 +160,7 @@ sudo ts_calibrate
 [5]: https://www.raspberrypi.com/documentation/computers/config_txt.html#custom-mode
 [6]: https://github.com/swkim01/waveshare-dtoverlays/blob/master/README.md
 [7]: https://unix.stackexchange.com/questions/138168/matrix-structure-for-screen-rotation
+[8]: https://www.embeddedpi.com/documentation/installing-linux-os/mypi-industrial-raspberry-pi-device-tree-overlays
 
 ## Disclaimer
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,
