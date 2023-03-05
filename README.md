@@ -1,6 +1,6 @@
 # GoodTFT GPIO Installer (Python)
 
-A _very basic_ python utility that helps you set up a [GoodTFT mini GPIO display][2] on a Raspberry Pi to mirror the HDMI display.
+A _very basic_ python utility that helps you set up a [GoodTFT mini GPIO touch display][2] on a Raspberry Pi desktop to mirror the HDMI display.
 It is inspired by (i.e. copied heavily from) the [Adafruit PiTFT script][3].
 
 See [compatibility](#compatibility) for information if your GPIO display is supported by the script.
@@ -19,11 +19,19 @@ cd gTFTPy
 sudo python3 install.py
 ```
 
-Example of this script run with parameters to avoid prompts
+### Parameters
+
+If run without parameters as shown above, the `install.py` script will prompt you for the options it needs.
+
+Alternatively you can run this script run with parameters preconfigured,
 
 ```shell
 sudo python3 install.py --display=3501r --rotation=90 --install-type=fbcp
 ```
+
+`--install-type=uninstall` should remove the changes made by the script.
+
+To change to a different `--rotation` option you can run the script again and choose another rotation (90, 180, 270, 0).
 
 ## What does this script do?
 
@@ -56,13 +64,14 @@ While this script,
 - installs only necessary files
 - works correctly with `systemd`
 - configures `libinput` correctly, no need for falling back to `evdev`
+- allows connecting both the HDMI and the GPIO display simultaneously in mirror mode
 
 ## Compatibility
 
 | Display | OS | OS Version | Raspberry Pi |
 | - | - | - | - |
-| [MPI3501- XPT2046](http://www.lcdwiki.com/3.5inch_RPi_Display) 3.5" 320*480 (Pixel) | Raspbian | GNU/Linux 11 (bullseye), 32-bit | Raspberry Pi 3 Model B Rev 1.2 |
-| [MPI3501- XPT2046](http://www.lcdwiki.com/3.5inch_RPi_Display) 3.5" 320*480 (Pixel) | Raspbian | GNU/Linux 10 (buster), 32-bit | Raspberry Pi 3 Model B Rev 1.2 |
+| [MPI3501- XPT2046](http://www.lcdwiki.com/3.5inch_RPi_Display) 3.5" TFT 320*480 (Pixel) | Raspbian | GNU/Linux 11 (bullseye) | Raspberry Pi 3 Model B Rev 1.2 |
+| [MPI3501- XPT2046](http://www.lcdwiki.com/3.5inch_RPi_Display) 3.5" TFT 320*480 (Pixel) | Raspbian | GNU/Linux 10 (buster) | Raspberry Pi 3 Model B Rev 1.2 |
 
 ## Support
 
@@ -74,7 +83,7 @@ Hopefully, there is enough information and resources here that can help you debu
 
 ### Adding support for a new display
 
-If your display is supported by the [Good TFT scripts][1], start your understanding there. From there you can get the correct driver/overlay file and place it in `overlays` folder of this script. Then add a config section for your display into this script (around line 44).
+If your display is supported by the [Good TFT scripts][1], start your understanding there by looking at what that script does. From it you can get the correct driver/overlay file and place it in `overlays` folder of this script. Then add a compatible config section for your display into this script (around line 44).
 
 ## Useful Commands
 
@@ -108,9 +117,10 @@ sudo ts_calibrate
 1. [Good TFT LCD-show scripts and driver overlays][1]
 2. [Raspberry Pi LCD Wiki][2]
 3. [Adafruit PiTFT Installer Python Script][3]
-4. [Framebuffer Copy (fbcp) repository][4]
+4. [Framebuffer Copy (fbcp) utility][4]
 5. [Raspberry Pi HDMI mode configuration][5]
 6. [`libinput` calibration][6]
+7. [Matrix Structure for screen rotation][7]
 
 [1]: https://github.com/goodtft/LCD-show
 [2]: http://www.lcdwiki.com/
@@ -118,6 +128,7 @@ sudo ts_calibrate
 [4]: https://github.com/tasanakorn/rpi-fbcp
 [5]: https://www.raspberrypi.com/documentation/computers/configuration.html#setting-a-custom-hdmi-mode
 [6]: https://github.com/swkim01/waveshare-dtoverlays/blob/master/README.md
+[7]: https://unix.stackexchange.com/questions/138168/matrix-structure-for-screen-rotation
 
 ## Disclaimer
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,
