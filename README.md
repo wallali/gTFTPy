@@ -126,7 +126,7 @@ sudo ts_calibrate
 [2]: http://www.lcdwiki.com/
 [3]: https://github.com/adafruit/Raspberry-Pi-Installer-Scripts/blob/main/adafruit-pitft.py
 [4]: https://github.com/tasanakorn/rpi-fbcp
-[5]: https://www.raspberrypi.com/documentation/computers/configuration.html#setting-a-custom-hdmi-mode
+[5]: https://www.raspberrypi.com/documentation/computers/config_txt.html#custom-mode
 [6]: https://github.com/swkim01/waveshare-dtoverlays/blob/master/README.md
 [7]: https://unix.stackexchange.com/questions/138168/matrix-structure-for-screen-rotation
 
