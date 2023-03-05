@@ -23,7 +23,7 @@ sudo python3 install.py
 
 If run without parameters as shown above, the `install.py` script will prompt you for the options it needs.
 
-Alternatively you can run this script run with parameters preconfigured,
+Alternatively you can run this script with parameters preconfigured,
 
 ```shell
 sudo python3 install.py --display=3501r --rotation=90 --install-type=fbcp
