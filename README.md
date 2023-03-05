@@ -83,7 +83,33 @@ Hopefully, there is enough information and resources here that can help you debu
 
 ### Adding support for a new display
 
-If your display is supported by the [Good TFT scripts][1], start your understanding there by looking at what that script does. From it you can get the correct driver/overlay file and place it in `overlays` folder of this script. Then add a compatible config section for your display into this script (around line 44).
+If your display is supported by the [Good TFT scripts][1], start your understanding there by looking at what that script does. From it you can get the correct driver/overlay files and parameters and use them in this script. You can add a compatible config section for your display into this script (around line 44). When you get it to work, well done you! Now consider contributing your work back to this repo.
+
+```py
+config = [  
+    {
+        "type": "MHS3528r",                                   # short name, can be used on the command line
+        "menulabel": "3.5” MHS resistive touch",
+        "product": "3.5\" Resistive",
+        "overlay_src": "./overlays/mhs35-overlay.dtb",        # driver file. do you need it (ls /boot/overlays/)? If yes, you can get these from GoodTFT repo.
+        "overlay_dest": "{boot_dir}/overlays/mhs35.dtbo",     # This must match to the name used in the overlay section below
+        "touchscreen": {
+            "identifier": "ADS7846 Touchscreen Calibration",  
+            "product": "ADS7846 Touchscreen",                 # xinput could tell you this
+            "transforms": {                                   # hmm, tricky stuff, need to work out the correct values for your display. Try libinput calibration
+                "0": "1.102807 0.000030 -0.066352 0.001374 1.085417 -0.027208 0 0 1",
+                "90": "0.003893 -1.087542 1.025913 1.084281 0.008762 -0.060700 0 0 1",
+                "180": "-1.098388 0.003455 1.052099 0.005512 -1.093095 1.026309 0 0 1",
+                "270": "-0.000087 1.094214 -0.028826 -1.091711 -0.004364 1.057821 0 0 1",
+            },
+        },
+        "overlay": "dtoverlay=tft35a,rotate={pitftrot},fps=60", # match filename with overlay_dest or an existing /boot/overlays/, without extension
+        "width": 480,           # what your display supports
+        "height": 320,          # what your display supports
+        "x11_scale": 2,         # HDMI resolution scaling: 1.5, 2, ... 
+    },
+]
+```
 
 ## Useful Commands
 
